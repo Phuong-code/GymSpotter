@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSpotter.Views.SignUpPage"
+             xmlns:handless="clr-namespace:GymSpotter.Handlers"
+             xmlns:viewModel="clr-namespace:GymSpotter.ViewModels"
+             Title="SignUpPage"
+             BackgroundColor="#fffdf6">
+    <Grid RowDefinitions="10*">
+
+        <Frame ZIndex="1"
+               Margin="0,70,0,0"
+               CornerRadius="0"
+               Grid.Row="0"
+               VerticalOptions="CenterAndExpand"
+               BorderColor="Transparent"
+               BackgroundColor="#fffdf6">
+            <ScrollView>
+                <VerticalStackLayout Spacing="25"
+                                     BackgroundColor="#fffdf6">
+                    <Label Text="Sign Up" FontSize="28" TextColor="Gray" HorizontalTextAlignment="Center" />
+
+                    <Frame Padding="10" HasShadow="True" BorderColor="White" CornerRadius="18">
+                        <Grid ColumnDefinitions="25,*" ColumnSpacing="10">
+                            <Image VerticalOptions="Center" Source="user.png" HeightRequest="25" WidthRequest="25" />
+                            <handless:BorderlessEntry VerticalOptions="Center"
+                                                      Placeholder="First Name*"
+                                                      Grid.Column="1"
+                                                      Text="{Binding FirstName}" />
+                        </Grid>
+                    </Frame>
+
+                    <Frame Padding="10" HasShadow="True" BorderColor="White" CornerRadius="18">
+                        <Grid ColumnDefinitions="25,*" ColumnSpacing="10">
+                            <Image VerticalOptions="Center" Source="user.png" HeightRequest="25" WidthRequest="25" />
+                            <handless:BorderlessEntry VerticalOptions="Center"
+                                                      Placeholder="Last Name*"
+                                                      Grid.Column="1"
+                                                      Text="{Binding LastName}" />
+                        </Grid>
+                    </Frame>
+
+                    <Frame Padding="10" HasShadow="True" BorderColor="White" CornerRadius="18">
+                        <Grid ColumnDefinitions="25,*" ColumnSpacing="10">
+                            <Image VerticalOptions="Center" Source="email.png" HeightRequest="25" WidthRequest="25" />
+                            <handless:BorderlessEntry VerticalOptions="Center"
+                                                      Placeholder="Email*"
+                                                      Grid.Column="1"
+                                                      Text="{Binding Email}" />
+                        </Grid>
+                    </Frame>
+
+                    <Frame Padding="10" HasShadow="True" BorderColor="White" CornerRadius="18">
+                        <Grid ColumnDefinitions="25,*" ColumnSpacing="10">
+                            <Image VerticalOptions="Center" Source="lock.png" HeightRequest="25" WidthRequest="25" />
+                            <handless:BorderlessEntry VerticalOptions="Center"
+                                                      Placeholder="Password*"
+                                                      IsPassword="True"
+                                                      Grid.Column="1"
+                                                      Text="{Binding Password}" />
+                        </Grid>
+                    </Frame>
+
+                    <Frame Padding="10" HasShadow="True" BorderColor="White" CornerRadius="18">
+                        <Grid ColumnDefinitions="25,*" ColumnSpacing="10">
+                            <Image VerticalOptions="Center" Source="lock.png" HeightRequest="25" WidthRequest="25" />
+                            <handless:BorderlessEntry VerticalOptions="Center"
+                                                      Placeholder="Confirm Password*"
+                                                      IsPassword="True"
+                                                      Grid.Column="1"
+                                                      Text="{Binding ConfirmPassword}" />
+                        </Grid>
+                    </Frame>
+
+                    <Button Text="Sign Up" WidthRequest="300" CornerRadius="20" HorizontalOptions="Center" BackgroundColor="#0096FF" Command="{Binding SignUpCommand}" />
+
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Label  TextColor="Gray" Text="already have a account?"/>
+                        <Label  Text="SIGN IN" TextColor="#50b3f2" />
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_For_SignIn" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
+
+        <ActivityIndicator HeightRequest="60"
+                           IsRunning="{Binding IsProcessing}"
+                           WidthRequest="60" />
+    </Grid>
+</ContentPage>

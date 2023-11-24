@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSpotter.Views.ListViewPageOnIOS"
+             xmlns:model="clr-namespace:GymSpotter.Models"
+             xmlns:helper="clr-namespace:GymSpotter.Helpers"
+             xmlns:star="clr-namespace:AlohaKit.Controls;assembly=AlohaKit"
+             xmlns:viewModel="clr-namespace:GymSpotter.ViewModels"
+             Background="#E6E6E6">
+
+    <Grid>
+        <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Always"
+                    Margin="0,0,0,10">
+            <VerticalStackLayout>
+                <Frame HeightRequest="44"
+                       Padding="10,0,0,0"
+                       CornerRadius="0"
+                       Margin="20,10,20,0">
+                    <StackLayout Orientation="Horizontal">
+                        <Entry Placeholder="Search"
+                               FontSize="18"
+                               Margin="10,0,10,0"
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding SearchEntry}"
+                               ReturnCommand="{Binding SearchCommand}"/>
+                        <Image Margin="0,0,10,0"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End">
+                            <Image.Source>
+                                <FontImageSource FontFamily="IconFontTypes"
+                                                 Glyph="{x:Static helper:IconFontHelper.Search}"
+                                                 Size="30"
+                                                 Color="Gray" />
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </Frame>
+                <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never"
+                            Margin="20,0,20,0">
+
+                    <HorizontalStackLayout Spacing="10">
+
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               BackgroundColor="white"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start">
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Filter By" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#f0e9e9"
+                               BorderColor="{Binding FilterAllBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="All" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="All" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#e5ccfd"
+                               BorderColor="{Binding Filter24_7BorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="24/7" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="24/7" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#fee9a8"
+                               BorderColor="{Binding FilterDojoBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Dojo" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Dojo" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#b3b3b3"
+                               BorderColor="{Binding FilterMMABorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="MMA" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="MMA" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#bee2fd"
+                               BorderColor="{Binding FilterBoxingBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Boxing" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Boxing" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#aef3c7"
+                               BorderColor="{Binding FilterCrossfitBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Crossfit" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Crossfit" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#ffc9c3"
+                               BorderColor="{Binding FilterPowerliftingBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Powerlifting" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Powerlifting" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#fcb6f2"
+                               BorderColor="{Binding FilterFemaleOnlyBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Female Only" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Female Only" />
+                        </Frame>
+                        <Frame Margin="0,5,0,0"
+                               Padding="10,5,10,5"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               BackgroundColor="#fbd3a0"
+                               BorderColor="{Binding FilterRockClimbingBorderColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FilterGymCommand}"
+                                                      CommandParameter="Rock Climbing" />
+                            </Frame.GestureRecognizers>
+                            <Label FontSize="15"
+                                   FontAttributes="Bold"
+                                   Text="Rock Climbing" />
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <CollectionView ItemsSource="{Binding GymsWithTypeCount}">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <Frame BackgroundColor="White"
+                                       Margin="20,20,20,0"
+                                       Padding="10"
+                                       CornerRadius="20"
+                                       BorderColor="Gray">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ListViewPageViewModel}}, Path=DisplayGymDetailsCommand}"
+                                                              CommandParameter="{Binding Gym}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+
+                                    <Grid ColumnSpacing="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.55*" />
+                                            <ColumnDefinition Width="0.45*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Grid.Column="0">
+                                            <VerticalStackLayout Spacing="10">
+
+                                                <Label Margin="0,0,0,5"
+                                                       FontAttributes="Bold"
+                                                       FontSize="20"
+                                                       Text="{Binding Gym.Name}" />
+
+                                                <Label Margin="0,0,0,5"
+                                                       FontSize="15"
+                                                       Text="{Binding Gym.Location}" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <star:Rating Value="{Binding Gym.Rating}"
+                                                                 IsReadOnly="True" />
+                                                    <Label Margin="5,0,0,5"
+                                                           FontSize="20">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="(" />
+                                                                <Span Text="{Binding ReviewCount}" />
+                                                                <Span Text=")" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <ScrollView>
+                                                    <FlexLayout
+                                                        AlignContent="Start"
+                                                        AlignItems="Start"
+                                                        AlignSelf="Start"
+                                                        Direction="Row"
+                                                        JustifyContent="Start"
+                                                        Wrap="Wrap"
+                                                        BindableLayout.ItemsSource="{Binding Gym.Types}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Label
+                                                                    FontSize="15"
+                                                                    Padding="5"
+                                                                    Margin="0,0,2,0"
+                                                                    FontAttributes="Bold"
+                                                                    Text="{Binding}"
+                                                                    HorizontalOptions="Center"
+                                                                    BackgroundColor="{Binding Converter={StaticResource GymTypeToColorConverter}}"/>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </FlexLayout>
+                                                </ScrollView>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <VerticalStackLayout Spacing="30">
+                                                <ImageButton Source="fav_heart_filled.png"
+                                                             HeightRequest="40"
+                                                             WidthRequest="45"
+                                                             Aspect="Fill"
+                                                             HorizontalOptions="End"
+                                                             Command="{Binding UnfavGymCommand, Source={RelativeSource AncestorType={x:Type viewModel:ListViewPageViewModel}}}"
+                                                             CommandParameter="{Binding Gym.Id}">
+                                                    <ImageButton.Triggers>
+                                                        <DataTrigger TargetType="ImageButton"
+                                                                     Binding="{Binding IsFavorite}"
+                                                                     Value="True">
+                                                            <Setter Property="Source"
+                                                                    Value="fav_heart_filled.png" />
+                                                            <Setter Property="Command"
+                                                                    Value="{Binding UnfavGymCommand, Source={RelativeSource AncestorType={x:Type viewModel:ListViewPageViewModel}}}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="ImageButton"
+                                                                     Binding="{Binding IsFavorite}"
+                                                                     Value="False">
+                                                            <Setter Property="Source"
+                                                                    Value="fav_heart.png" />
+                                                            <Setter Property="Command"
+                                                                    Value="{Binding FavoriteGymCommand, Source={RelativeSource AncestorType={x:Type viewModel:ListViewPageViewModel}}}" />
+                                                        </DataTrigger>
+                                                    </ImageButton.Triggers>
+                                                </ImageButton>
+                                                <Frame BackgroundColor="White"
+                                                       Margin="0,0,0,0"
+                                                       CornerRadius="5"
+                                                       BorderColor="Grey"
+                                                       Padding="5"
+                                                       WidthRequest="130">
+                                                    <Grid>
+                                                        <Image Aspect="AspectFill" HeightRequest="110" WidthRequest="120" VerticalOptions="Center" Source="default_image.jpg"/>
+                                                        <Image Aspect="AspectFill" HeightRequest="110" WidthRequest="120" VerticalOptions="Center" Source="{Binding Gym.PhotoReferenceURL}"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </ContentView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator HeightRequest="60"
+                           IsRunning="{Binding IsProcessing}"
+                           WidthRequest="60" />
+    </Grid>
+</ContentPage>

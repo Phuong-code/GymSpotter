@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSpotter.Views.UserDetailsPageOnIOS"
+             xmlns:helper="clr-namespace:GymSpotter.Helpers"
+             xmlns:star="clr-namespace:AlohaKit.Controls;assembly=AlohaKit"
+             xmlns:viewModel="clr-namespace:GymSpotter.ViewModels"
+             Background="#E6E6E6">
+    <ScrollView>
+        <VerticalStackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center">
+                    <Image Margin="0,0,20,0"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           Source="user_profile.png"
+                           VerticalOptions="Center" />
+                    <StackLayout VerticalOptions="Center">
+                        <Label Margin="10,0,0,0"
+                               FontAttributes="Bold"
+                               FontSize="20">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding User.FirstName}" />
+                                    <Span Text=" " />
+                                    <Span Text="{Binding User.LastName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Button Margin="0,10,0,0"
+                                Background="#2196f3"
+                                CornerRadius="15"
+                                Command="{Binding OpenEditProfilePopUpCommand}"
+                                Text="Edit Profile"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+                        <Button Margin="0,10,0,0"
+                                Background="#eb4315"
+                                CornerRadius="15"
+                                Command="{Binding LogoutCommand}"
+                                Text="Logout"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Margin="30,20,0,-10"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           Text="My Gyms" />
+                    <CollectionView ItemsSource="{Binding GymDetailsList}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                <Frame BackgroundColor="White"
+                                       Margin="20,20,20,0"
+                                       Padding="10"
+                                       CornerRadius="20"
+                                       BorderColor="Gray">
+                                    <Grid ColumnSpacing="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.55*" />
+                                            <ColumnDefinition Width="0.45*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <VerticalStackLayout Spacing="10">
+
+                                                <Label Margin="0,0,0,5"
+                                                       FontAttributes="Bold"
+                                                       FontSize="20"
+                                                       Text="{Binding Gym.Name}" />
+
+                                                <Label Margin="0,0,0,5"
+                                                       FontSize="15"
+                                                       Text="{Binding Gym.Location}" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <star:Rating Value="{Binding Gym.Rating}"
+                                                                 IsReadOnly="True" />
+                                                    <Label Margin="5,0,0,5"
+                                                           FontSize="20">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="(" />
+                                                                <Span Text="{Binding ReviewCount}" />
+                                                                <Span Text=")" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <ScrollView>
+                                                    <FlexLayout
+                                                        AlignContent="Start"
+                                                        AlignItems="Start"
+                                                        AlignSelf="Start"
+                                                        Direction="Row"
+                                                        JustifyContent="Start"
+                                                        Wrap="Wrap"
+                                                        BindableLayout.ItemsSource="{Binding Gym.Types}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Label
+                                                                    FontSize="15"
+                                                                    Padding="5"
+                                                                    Margin="0,0,2,0"
+                                                                    FontAttributes="Bold"
+                                                                    Text="{Binding}"
+                                                                    HorizontalOptions="Center"
+                                                                    BackgroundColor="{Binding Converter={StaticResource GymTypeToColorConverter}}"/>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </FlexLayout>
+                                                </ScrollView>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <VerticalStackLayout Spacing="5">
+                                                <Frame BackgroundColor="White"
+                                                       Margin="0,0,0,0"
+                                                       CornerRadius="5"
+                                                       BorderColor="Grey"
+                                                       Padding="5"
+                                                       WidthRequest="130">
+                                                    <Image Source="gym_room.jpg"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="150"
+                                                           VerticalOptions="Center" />
+                                                </Frame>
+                                                <Button Margin="0,0,0,0"
+                                                        Background="#2196f3"
+                                                        CornerRadius="15"
+                                                        Text="View Details"
+                                                        FontAttributes="Bold"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:UserDetailsPageViewModel}}, Path=ViewDetailsCommand}"
+                                                        CommandParameter="{Binding Gym}"
+                                                        TextColor="White"
+                                                        WidthRequest="130" />
+                                                <Button Margin="0,0,0,0"
+                                                        Background="#eb4315"
+                                                        CornerRadius="15"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:UserDetailsPageViewModel}}, Path=OpenEditGymPopUpCommand}"
+                                                        CommandParameter="{Binding Gym}"
+                                                        Text="Edit"
+                                                        FontAttributes="Bold"
+                                                        WidthRequest="130"
+                                                        TextColor="White" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <VerticalStackLayout>
+                    <Label Margin="30,20,0,10"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           Text="My Reviews" />
+                    <CollectionView ItemsSource="{Binding GymReviewWithGymNameList}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                <Frame BackgroundColor="White"
+                                       Margin="20,0,20,20"
+                                       CornerRadius="20"
+                                       BorderColor="Gray">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:UserDetailsPageViewModel}}, Path=DisplayGymDetailsCommand}"
+                                                              CommandParameter="{Binding Gym}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Margin="0,0,0,5"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               Text="{Binding Gym.Name}" />
+                                        <Label FontSize="10"
+                                               Text="{Binding Review.Date, Converter={StaticResource DateToTimeAgoConverter}}" />
+                                        <StackLayout Orientation="Horizontal"
+                                                     Spacing="10">
+                                            <Label FontSize="13"
+                                                   Text="Overall"
+                                                   VerticalOptions="Center" />
+                                            <star:Rating Value="{Binding Review.Rating}"
+                                                         IsReadOnly="True"
+                                                         Scale=".5"
+                                                         AnchorX=".01" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                     Spacing="10">
+                                            <Label FontSize="13"
+                                                   Text="Cleanliness"
+                                                   VerticalOptions="Center" />
+                                            <star:Rating Value="{Binding Review.Cleanliness}"
+                                                         IsReadOnly="True"
+                                                         Scale=".5"
+                                                         AnchorX=".01" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                     Spacing="10">
+                                            <Label FontSize="13"
+                                                   Text="Price"
+                                                   VerticalOptions="Center" />
+                                            <star:Rating Value="{Binding Review.Price}"
+                                                         IsReadOnly="True"
+                                                         Scale=".5"
+                                                         AnchorX=".01" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                     Spacing="10">
+                                            <Label FontSize="13"
+                                                   Text="Service"
+                                                   VerticalOptions="Center" />
+                                            <star:Rating Value="{Binding Review.Service}"
+                                                         IsReadOnly="True"
+                                                         Scale=".5"
+                                                         AnchorX=".01" />
+                                        </StackLayout>
+                                        <Label Margin="0,10,0,0"
+                                               FontSize="15"
+                                               Text="{Binding Review.Description}"
+                                               LineBreakMode="CharacterWrap" />
+                                    </StackLayout>
+                                </Frame>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+                <ActivityIndicator HeightRequest="60"
+                                   VerticalOptions="Center"
+                                   IsRunning="{Binding IsProcessing}"
+                                   WidthRequest="60" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

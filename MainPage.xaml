@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:GymSpotter.Views"
+             x:Class="GymSpotter.MainPage">
+    <ContentPage.Resources>
+        <Style TargetType="RadioButton" x:Key="NavButtonStyle">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="WidthRequest" Value="80" />
+            <Setter Property="HeightRequest" Value="75" />
+            <Setter Property="ControlTemplate">
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Rectangle
+                            x:Name="BackgroundRec"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Fill="#bababa"
+                            RadiusX="10"
+                            RadiusY="10"
+                            IsVisible="{TemplateBinding IsChecked}"
+                            WidthRequest="75"
+                            HeightRequest="75" />
+                        <Image
+                            Grid.Row="0"
+                            Source="{TemplateBinding Value}"
+                            Aspect="AspectFit" />
+                        <Label
+                            Grid.Row="1"
+                            Text="{TemplateBinding Content}"
+                            TextColor="{TemplateBinding TextColor}"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+            <Style.Triggers>
+                <Trigger TargetType="RadioButton" Property="IsChecked" Value="True">
+                    <Setter Property="FontAttributes" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Frame
+            Grid.Row="1"
+            BorderColor="Gray"
+            CornerRadius="30"
+            BackgroundColor="Gray"
+            Margin="15"
+            Padding="5"
+            VerticalOptions="End"
+            HeightRequest="80"
+            HorizontalOptions="FillAndExpand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton
+                    Style="{StaticResource NavButtonStyle}"
+                    x:Name="SearchNavButton"
+                    Grid.Column="0"
+                    Value="search_nav_icon.png"
+                    Content="Search" />
+                <RadioButton
+                    Style="{StaticResource NavButtonStyle}"
+                    x:Name="MapNavButton"
+                    Grid.Column="1"
+                    Value="map_nav_icon.png"
+                    Content="Map" />
+                <RadioButton
+                    Style="{StaticResource NavButtonStyle}"
+                    x:Name="FavoriteNavButton"
+                    Grid.Column="2"
+                    Value="favorite_nav_icon.png"
+                    Content="Favourites" />
+                <RadioButton
+                    Style="{StaticResource NavButtonStyle}"
+                    x:Name="ProfileNavButton"
+                    Grid.Column="3"
+                    Value="profile_nav_icon.png"
+                    Content="Profile" />
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentPage>

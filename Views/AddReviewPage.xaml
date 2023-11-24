@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           x:Class="GymSpotter.Views.AddReviewPage"
+           xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+           xmlns:handlers="clr-namespace:GymSpotter.Handlers"
+           xmlns:rating="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+           xmlns:star="clr-namespace:AlohaKit.Controls;assembly=AlohaKit"
+           CanBeDismissedByTappingOutsideOfPopup="False"
+           Color="Transparent">
+
+    <ScrollView HorizontalOptions="Center"
+                VerticalOptions="Center">
+        <Border WidthRequest="300"
+                BackgroundColor="White"
+                HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,20,20" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="10"
+                                 Padding="10"
+                                 Margin="0,10,0,0">
+                <Label Margin="0,10,0,0"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       Text="Add Review"
+                       VerticalOptions="Center" />
+                <Label FontAttributes="Bold"
+                       FontSize="18"
+                       Text="Overall"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                <star:Rating Value="{Binding Source={x:Reference RatingSlider}, Path=Value}"
+                             Scale="1.5"
+                             IsReadOnly="True" />
+                <Slider x:Name="RatingSlider"
+                        Minimum="0"
+                        Value="{Binding UserReview.Rating}"
+                        Maximum="5"
+                        WidthRequest="200" />
+
+                <HorizontalStackLayout Spacing="20"
+                                       Margin="0,0,0,0">
+                    <VerticalStackLayout Spacing="0"
+                                         VerticalOptions="Start"
+                                         >
+                        <Label FontAttributes="Bold"
+                               FontSize="15"
+                               Text="Cleanliness"
+                               VerticalOptions="Center" 
+                               Margin="0,5"/>
+                        <Label FontAttributes="Bold"
+                               FontSize="15"
+                               Text="Price"
+                               VerticalOptions="Center"
+                               Margin="0,20" />
+                        <Label FontAttributes="Bold"
+                               FontSize="15"
+                               Text="Service"
+                               VerticalOptions="Center"
+                               Margin="0,10" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="0">
+                        <star:Rating Value="{Binding Source={x:Reference CleanlinessSlider}, Path=Value}"
+                                     IsReadOnly="True">
+                        </star:Rating>
+
+                        <Slider x:Name="CleanlinessSlider"
+                                Minimum="0"
+                                Value="{Binding UserReview.Cleanliness}"
+                                Maximum="5"
+                                WidthRequest="170" />
+                        <star:Rating Value="{Binding Source={x:Reference PriceSlider}, Path=Value}"
+                                     IsReadOnly="True">
+                        </star:Rating>
+                        <Slider x:Name="PriceSlider"
+                                Minimum="0"
+                                Value="{Binding UserReview.Price}"
+                                Maximum="5"
+                                WidthRequest="170" />
+                        <star:Rating Value="{Binding Source={x:Reference ServiceSlider}, Path=Value}"
+                                     IsReadOnly="True">
+                        </star:Rating>
+                        <Slider x:Name="ServiceSlider"
+                                Minimum="0"
+                                Value="{Binding UserReview.Service}"
+                                Maximum="5"
+                                WidthRequest="170" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Label FontAttributes="Bold"
+                       FontSize="15"
+                       Text="Description"
+                       VerticalOptions="Center" />
+
+                <Border StrokeThickness="2"
+                        StrokeShape="RoundRectangle 10,10,10,10"
+                        Grid.ColumnSpan="2">
+                    <handlers:BorderlessEditor Text="{Binding UserReview.Description}"
+                                               VerticalOptions="Center"
+                                               Placeholder="Share details of your experience"
+                                               AutoSize="TextChanges"
+                                               Margin="20,0,20,0" />
+                </Border>
+
+                <HorizontalStackLayout Spacing="30"
+                                       HorizontalOptions="Center"
+                                       Grid.ColumnSpan="2">
+                    <Button x:Name="EditButton"
+                            Margin="0,5"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="EndAndExpand"
+                            Text="Save"
+                            Command="{Binding AddOrUpdateReviewCommand}"
+                            Background="#0D99FF">
+                    </Button>
+                    <Button x:Name="CancelButton"
+                            Margin="0,5"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="EndAndExpand"
+                            Text="Cancel"
+                            Clicked="CancelAddReview"
+                            Background="#F24822">
+                    </Button>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </ScrollView>
+</mct:Popup>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="GymSpotter.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:GymSpotter"
+       xmlns:views="clr-namespace:GymSpotter.Views"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False">
+
+    <ShellContent Title="Login"
+                  ContentTemplate="{DataTemplate views:LoginPage}"
+                  Route="Login" />
+    <TabBar Route="Dashboard">
+        <Tab Title="Search"
+             Icon="search_nav_icon.png"
+             Route="ListViewPage">
+            <ShellContent ContentTemplate="{OnPlatform {DataTemplate views:ListViewPage}, iOS={DataTemplate views:ListViewPageOnIOS}, Android={DataTemplate views:ListViewPage}}" />
+        </Tab>
+        <Tab Title="Map"
+             Icon="map_nav_icon.png"
+             Route="MapPage">
+            <ShellContent ContentTemplate="{DataTemplate views:MapPage}" />
+        </Tab>
+        <Tab Title="Favorite"
+             Icon="favorite_nav_icon.png"
+             Route="FavouriteListViewPage">
+            <ShellContent ContentTemplate="{OnPlatform {DataTemplate views:FavouriteListViewPage}, iOS={DataTemplate views:FavouriteListViewPageOnIOS}, Android={DataTemplate views:FavouriteListViewPage}}" />
+        </Tab>
+        <Tab Title="Profile"
+             Icon="profile_nav_icon.png"
+             Route="UserDetailsPage">
+            <ShellContent ContentTemplate="{OnPlatform {DataTemplate views:UserDetailsPage}, iOS={DataTemplate views:UserDetailsPageOnIOS}, Android={DataTemplate views:UserDetailsPage}}" />
+        </Tab>
+    </TabBar>
+</Shell>
